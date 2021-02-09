@@ -5,7 +5,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Finds the greatest common devisor of two integers, u and v. 
  * 
- * See: pg 8
+ * See: pg 8, Algorithms in C
  * 
  * Makes use of Euclid's observation in Elements that the greatest common
  * divisor of u and v is the same as the greatest common divisor of v and
@@ -17,6 +17,7 @@
  */
 int gcd(int u, int v) 
 {
+
     // handle 0-cases gracefully
     if ( u == 0 ) {
         return v;
