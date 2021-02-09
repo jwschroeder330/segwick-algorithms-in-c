@@ -17,7 +17,26 @@ int clean_suite(void)
 
 void test_case_both_positive(void) 
 {
-    CU_ASSERT_TRUE(CU_TRUE);
+    CU_ASSERT_TRUE(gcd(8, 12) == 4);
+    CU_ASSERT_TRUE(gcd(7539, 421) == 1);
+}
+
+void test_case_one_arg_is_zero(void) 
+{
+    CU_ASSERT_TRUE(gcd(0, 3) == 3);
+    CU_ASSERT_TRUE(gcd(3, 0) == 3);
+}
+
+void test_case_both_arg_are_zero(void)
+{
+    CU_ASSERT_TRUE(gcd(0, 0) == 0);
+}
+
+
+void test_case_one_arg_is_negative(void)
+{
+    CU_ASSERT_TRUE(gcd(-1, 3) == 0);
+    CU_ASSERT_TRUE(gcd(3, -1) == 0);
 }
 
 int main (void) 
@@ -38,6 +57,18 @@ int main (void)
 
     // add each test to the suite and check for issues
     if (NULL == CU_add_test(suite, "test_case_both_positive", test_case_both_positive)) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+    if (NULL == CU_add_test(suite, "test_case_one_arg_is_zero", test_case_one_arg_is_zero)) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+    if (NULL == CU_add_test(suite, "test_case_both_arg_are_zero", test_case_both_arg_are_zero)) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+    if (NULL == CU_add_test(suite, "test_case_one_arg_is_negative", test_case_one_arg_is_negative)) {
         CU_cleanup_registry();
         return CU_get_error();
     }
