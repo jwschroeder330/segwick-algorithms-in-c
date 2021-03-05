@@ -18,25 +18,27 @@ int clean_suite(void)
 void test_case_both_positive(void) 
 {
     CU_ASSERT_TRUE(gcd(8, 12) == 4);
+    CU_ASSERT_TRUE(gcd(12, 8) == 4);
     CU_ASSERT_TRUE(gcd(7539, 421) == 1);
+    CU_ASSERT_TRUE(gcd(421, 7539) == 1);
 }
 
 void test_case_one_arg_is_zero(void) 
 {
-    CU_ASSERT_TRUE(gcd(0, 3) == 3);
-    CU_ASSERT_TRUE(gcd(3, 0) == 3);
+    CU_ASSERT_TRUE(gcd(0, 3) == -1);
+    CU_ASSERT_TRUE(gcd(3, 0) == -1);
 }
 
 void test_case_both_arg_are_zero(void)
 {
-    CU_ASSERT_TRUE(gcd(0, 0) == 0);
+    CU_ASSERT_TRUE(gcd(0, 0) == -1);
 }
 
 
 void test_case_one_arg_is_negative(void)
 {
-    CU_ASSERT_TRUE(gcd(-1, 3) == 0);
-    CU_ASSERT_TRUE(gcd(3, -1) == 0);
+    CU_ASSERT_TRUE(gcd(-1, 3) == -1);
+    CU_ASSERT_TRUE(gcd(3, -1) == -1);
 }
 
 int main (void) 

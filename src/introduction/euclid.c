@@ -3,43 +3,45 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * gcd
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Finds the greatest common devisor of two integers, u and v. 
+ * Finds the greatest common divisor of two numbers given in order of size
+ * descending (larger first), here named dividend and divisor.
  * 
- * See: pg 8, Algorithms in C
+ * This function takes inspiration from page 8 of "Algorithms in C" while
+ * making use of the suggested modification on page 24 to use the modulo 
+ * operator instead of iterative deletion of u - v (e.g., dividend - divisor).
  * 
- * Makes use of Euclid's observation in Elements that the greatest common
- * divisor of u and v is the same as the greatest common divisor of v and
- * u - v.
- * 
- * See also: https://www.khanacademy.org/computing/computer-science/
- * cryptography/modarithmetic/a/the-euclidean-algorithm
+ * @param dividend, the greater of the two integers (if they are not equal)
+ * @param divisor, the lesser of the two integers (if they are not equal)
+ * @return greatest common divisor on success, -1 on failure
  * 
  */
-int gcd(int u, int v) 
+int gcd(int dividend, int divisor) 
 {
-
-    // handle 0-cases gracefully
-    if ( u == 0 ) {
-        return v;
-    }
-    if ( v == 0 ) {
-        return u;
-    }
+    // create a temporary variable to hold the arithmetic outcome
+    // of our modulo operation
+    int newDivisor = -1;
     
-    if ( u < 0 || v < 0 ) {
-        return 0;
+    // failure case - either argument is 0 or less
+    if (dividend <= 0 || divisor <= 0) {
+        return -1;
     }
-    int t;
-    while (u > 0) 
+
+    // handle mis-ordering of the arguments, just in case
+    // the user does not follow instructions
+    if (dividend < divisor) {
+        newDivisor = dividend;
+        dividend = divisor;
+        divisor = newDivisor;
+    }
+
+    // iteratively compute the modulo until the divisor reaches 0
+    // at which point the gcd will be held in dividend 
+    // thanks to Euclid's algorithm
+    while (divisor > 0) 
     {
-        // ensure that u >= v by exchanging values, if necessary
-        if (u < v)
-        {
-            t = u; 
-            u = v; 
-            v = t;
-        }
-        u = u - v;
+        newDivisor = dividend % divisor;
+        dividend = divisor;
+        divisor = newDivisor;
     }
-    return v;
+    return dividend;
 }
