@@ -103,5 +103,6 @@ char * toBinary(int x) {
             exit(EXIT_FAILURE);
         }
     } while (quotient > 0);
+    str[i] = '\0';
     return str;
 }
