@@ -4,3 +4,4 @@ typedef struct Fraction {
 } Fraction;
 int gcd(int u, int v);
 Fraction toLowestTerms(Fraction x);
+char * toBinary(int x);

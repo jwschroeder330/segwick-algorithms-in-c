@@ -74,6 +74,14 @@ void test_case_to_lowest_terms_failure(void)
 }
 
 
+void test_case_to_binary_base(void) 
+{
+    int x = 9;
+    char * xBinary = toBinary(x);
+    CU_ASSERT_TRUE(strcmp(xBinary, "1001") == 0);
+}
+
+
 
 int main (void) 
 {
@@ -119,8 +127,13 @@ int main (void)
     if (NULL == CU_add_test(suite, "test_case_to_lowest_terms_failure", test_case_to_lowest_terms_failure)) {
         CU_cleanup_registry();
         return CU_get_error();
+    } 
+    if (NULL == CU_add_test(suite, "test_case_to_binary_base", test_case_to_binary_base)) {
+        CU_cleanup_registry();
+        return CU_get_error();
     }
-       // Run all tests using the basic interface
+
+    // Run all tests using the basic interface
    CU_basic_set_mode(CU_BRM_VERBOSE);
    CU_basic_run_tests();
    printf("\n");

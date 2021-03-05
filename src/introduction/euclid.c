@@ -1,11 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "euclid.h"
+
+// TODO: rename this file to introduction
 
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * gcd
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Finds the greatest common divisor of two numbers given in order of size
- * descending (larger first), here named dividend and divisor.
+ * Finds the greatest common divisor of two numbers using Euclid's algorithm.
  * 
  * This function takes inspiration from page 8 of "Algorithms in C" while
  * making use of the suggested modification on page 24 to use the modulo 
@@ -56,7 +60,7 @@ int gcd(int dividend, int divisor)
  *  contains a valid numerator and denominator.
  * 
  * @param x; the Fraction to reduce
- * @returns reduced Fraction in its lowest terms
+ * @return reduced Fraction in its lowest terms
  */
 Fraction toLowestTerms(Fraction x) {
     // find the gcd
@@ -67,9 +71,37 @@ Fraction toLowestTerms(Fraction x) {
         return x;
     }
 
-    // divide each 
+    // divide each and return
     x.numerator = x.numerator / divisor;
     x.denominator = x.denominator / divisor;
-
     return x;
+}
+
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * toBinary
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Returns the binary value (in the form of a string) of the given integer.
+ * 
+ * @param x, integer to be converted
+ * @return allocated char * string corresponding to the binary value of x
+ */
+char * toBinary(int x) {
+    int quotient = 0;
+    int remainder = 0;
+    int i = 0;
+    char * str = malloc(sizeof(char*));
+    do {
+        quotient = x / 2;
+        remainder = x % 2;
+        x = quotient;
+        str[i] = remainder + '0';
+        i ++;
+        str = realloc(str, sizeof(char*) * i);
+        if (str == NULL) {
+            perror("toBinary: could not allocate for str");
+            exit(EXIT_FAILURE);
+        }
+    } while (quotient > 0);
+    return str;
 }
