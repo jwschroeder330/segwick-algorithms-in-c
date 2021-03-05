@@ -1,3 +1,4 @@
+#include "euclid.h"
 
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,4 +45,31 @@ int gcd(int dividend, int divisor)
         divisor = newDivisor;
     }
     return dividend;
+}
+
+
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * toLowestTerms
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Returns the lowest terms of a given Fraction, assuming the Fraction
+ *  contains a valid numerator and denominator.
+ * 
+ * @param x; the Fraction to reduce
+ * @returns reduced Fraction in its lowest terms
+ */
+Fraction toLowestTerms(Fraction x) {
+    // find the gcd
+    int divisor = gcd(x.denominator, x.numerator);
+
+    // if call to gcd() fails, simply return the original input
+    if (divisor == -1) {
+        return x;
+    }
+
+    // divide each 
+    x.numerator = x.numerator / divisor;
+    x.denominator = x.denominator / divisor;
+
+    return x;
 }

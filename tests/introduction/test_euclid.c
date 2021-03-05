@@ -41,6 +41,40 @@ void test_case_one_arg_is_negative(void)
     CU_ASSERT_TRUE(gcd(3, -1) == -1);
 }
 
+
+void test_case_to_lowest_terms_base(void) 
+{
+    Fraction x;
+    x.numerator = 4;
+    x.denominator = 8;
+    Fraction y = toLowestTerms(x);
+    CU_ASSERT_TRUE(y.numerator == 1);
+    CU_ASSERT_TRUE(y.denominator == 2);
+}
+
+void test_case_to_lowest_terms_do_nothing(void) 
+{
+    Fraction x;
+    x.numerator = 1;
+    x.denominator = 2;
+    Fraction y = toLowestTerms(x);
+    CU_ASSERT_TRUE(y.numerator == 1);
+    CU_ASSERT_TRUE(y.denominator == 2);
+}
+
+
+void test_case_to_lowest_terms_failure(void) 
+{
+    Fraction x;
+    x.numerator = 0;
+    x.denominator = 2;
+    Fraction y = toLowestTerms(x);
+    CU_ASSERT_TRUE(y.numerator == 0);
+    CU_ASSERT_TRUE(y.denominator == 2);
+}
+
+
+
 int main (void) 
 {
     CU_pSuite suite = NULL;
@@ -74,7 +108,18 @@ int main (void)
         CU_cleanup_registry();
         return CU_get_error();
     }
-
+    if (NULL == CU_add_test(suite, "test_case_to_lowest_terms_base", test_case_to_lowest_terms_base)) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+    if (NULL == CU_add_test(suite, "test_case_to_lowest_terms_do_nothing", test_case_to_lowest_terms_do_nothing)) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+    if (NULL == CU_add_test(suite, "test_case_to_lowest_terms_failure", test_case_to_lowest_terms_failure)) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
        // Run all tests using the basic interface
    CU_basic_set_mode(CU_BRM_VERBOSE);
    CU_basic_run_tests();
